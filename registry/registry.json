@@ -1,0 +1,17 @@
+[
+    {
+        "service": "auth",
+        "BASE_PATH": "https://zrghstd-auth-api.herokuapp.com",
+        "LOCAL_BASE_PATH": "http://localhost:8000"
+    },
+    {
+        "service": "playground",
+        "BASE_PATH": "https://zrghstd-api-playground.herokuapp.com",
+        "LOCAL_BASE_PATH": "http://localhost:8001"
+    },
+    {
+        "service": "fileUploader",
+        "BASE_PATH": "https://zrghstd-fileuploader-playgroun.herokuapp.com",
+        "LOCAL_BASE_PATH": "http://localhost:8002"
+    }
+]

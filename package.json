@@ -1,0 +1,28 @@
+{
+  "name": "nodejs-gatewayapi-playground",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "prod": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "esm": "^3.2.25",
+    "express": "^4.18.1",
+    "express-useragent": "^1.0.15",
+    "form-data": "^4.0.0",
+    "helmet": "^6.0.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
