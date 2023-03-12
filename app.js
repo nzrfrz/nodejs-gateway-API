@@ -23,7 +23,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", routes);
 
 app.get("/", (req, res) => {
-    // console.log(req);
     res.status(200).send({message: "!!! NODEJS MONGODB BACKEND API PLAYGROUND !!!"});
 });
 
