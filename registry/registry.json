@@ -1,7 +1,7 @@
 [
     {
         "service": "auth",
-        "BASE_PATH": "https://zrghstd-auth-api.herokuapp.com",
+        "BASE_PATH": "https://nodejs-zstd-auth-api.vercel.app",
         "LOCAL_BASE_PATH": "http://localhost:8000"
     },
     {
