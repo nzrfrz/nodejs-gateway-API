@@ -16,6 +16,7 @@ const REGISTRY = JSON.parse(
 );
 
 routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) => {
+    // console.log(req.url.includes("auth"));
     const serviceData = REGISTRY.filter((data) => data.service === req?.params?.serviceName);
     if (req.file !== undefined) {
         let formData = new FormData();
@@ -32,6 +33,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
     } else {
         await axios({
             method: req.method,
+            // withCredentials: true,
             baseURL: `${req?.headers?.host?.includes("localhost") ? serviceData[0]?.LOCAL_BASE_PATH : serviceData[0]?.BASE_PATH}/${req?.params?.serviceName}/${req?.params?.path}`,
             // passing all headers to service
             headers: {
@@ -40,14 +42,23 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
                 version: req?.useragent?.version,
                 os: req?.useragent?.os,
                 platform: req?.useragent?.platform,
+                cookies: JSON.stringify(req?.cookies) || null
             },
             // passing all params and query url to service
             params: req.query,
             // passing all data, obejct, or JSON body to service
-            data: req?.body
+            data: req?.body,
         })
         .then((results) => {
-            if (results !== undefined) {
+            console.log("REFRESH: ", results.data);
+            if (results !== undefined && req.url.includes("v2")) {
+                res.cookie("refreshToken", results.data.data.refreshToken, {httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000});
+                res.status(results.status).send({
+                    ...results.data,
+                    data: {accessToken: results.data.data.accessToken}
+                });
+            }
+            else {
                 res.status(results.status).send(results.data);
             }
         })
