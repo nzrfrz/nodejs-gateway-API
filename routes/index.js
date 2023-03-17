@@ -17,7 +17,7 @@ const REGISTRY = JSON.parse(
 
 routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) => {
     // console.log(req.url.includes("auth"));
-    console.log("HEADERS: \n", req.headers);
+    // console.log("HEADERS: \n", req.headers);
     console.log(req.cookies);
 
     const serviceData = REGISTRY.filter((data) => data.service === req?.params?.serviceName);
@@ -54,14 +54,17 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
         })
         .then((results) => {
             // console.log("REFRESH: ", results.data);
-            if (results !== undefined && req.url.includes("v2")) {
-                // res.cookie("refreshToken", results.data.data.refreshToken, {httpOnly: true, secure: "auto", path: "/", domain: req?.headers?.host?.includes("localhost") ? undefined : "vercel.app", sameSite: 'None', maxAge: 24 * 60 * 60 * 1000});
-                // res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "None", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
+            if (results !== undefined && (req.url.includes("v2") && req.url.includes("login"))) {
                 res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "none", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
                 res.status(results.status).send({
                     ...results.data,
                     data: {accessToken: results.data.data.accessToken}
                 });
+            }
+            else if (results !== undefined && (req.url.includes("v2") && req.url.includes("logout"))) {
+                res.clearCookie("refreshToken");
+                console.log("LOGOUT V2");
+                res.status(results.status).send(results.data);
             }
             else {
                 res.status(results.status).send(results.data);
