@@ -34,7 +34,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
     } else {
         await axios({
             method: req.method,
-            // withCredentials: true,
+            withCredentials: true,
             baseURL: `${req?.headers?.host?.includes("localhost") ? serviceData[0]?.LOCAL_BASE_PATH : serviceData[0]?.BASE_PATH}/${req?.params?.serviceName}/${req?.params?.path}`,
             // passing all headers to service
             headers: {
