@@ -25,7 +25,7 @@ let corsOptions = {
     // exposedHeaders: ["set-cookie"],
 };
 
-// app.enable("trust proxy");
+app.enable("trust proxy");
 
 app.use(helmet());
 app.use(express.json());
