@@ -17,6 +17,7 @@ const REGISTRY = JSON.parse(
 
 routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) => {
     // console.log(req.url.includes("auth"));
+    res.header('Access-Control-Allow-Credentials', true);
     const serviceData = REGISTRY.filter((data) => data.service === req?.params?.serviceName);
     if (req.file !== undefined) {
         let formData = new FormData();
