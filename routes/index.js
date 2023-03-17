@@ -55,7 +55,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
             if (results !== undefined && req.url.includes("v2")) {
                 // res.cookie("refreshToken", results.data.data.refreshToken, {httpOnly: true, secure: "auto", path: "/", domain: req?.headers?.host?.includes("localhost") ? undefined : "vercel.app", sameSite: 'None', maxAge: 24 * 60 * 60 * 1000});
                 // res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "None", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
-                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === "production" ? true : false, sameSite: "none", path: "/", domain: process.env.NODE_ENV === "production" ? undefined : ".vercel.app", maxAge: 24 * 60 * 60 * 1000 });
+                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: false, sameSite: "none", domain: ".vercel.app", maxAge: 24 * 60 * 60 * 1000 });
                 res.status(results.status).send({
                     ...results.data,
                     data: {accessToken: results.data.data.accessToken}
