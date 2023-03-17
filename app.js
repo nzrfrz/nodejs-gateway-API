@@ -37,8 +37,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", routes);
 
 app.get("/", (req, res) => {
-    res.clearCookie();
-    console.log("COOKIE CLEARED");
     res.status(200).send({message: "!!! NODEJS MONGODB BACKEND API PLAYGROUND !!!"});
 });
 
