@@ -17,7 +17,9 @@ const REGISTRY = JSON.parse(
 
 routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) => {
     // console.log(req.url.includes("auth"));
-    console.log(req.headers.host);
+    console.log("HEADERS: \n", req.headers);
+    console.log(req.cookies);
+
     const serviceData = REGISTRY.filter((data) => data.service === req?.params?.serviceName);
     if (req.file !== undefined) {
         let formData = new FormData();
@@ -55,7 +57,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
             if (results !== undefined && req.url.includes("v2")) {
                 // res.cookie("refreshToken", results.data.data.refreshToken, {httpOnly: true, secure: "auto", path: "/", domain: req?.headers?.host?.includes("localhost") ? undefined : "vercel.app", sameSite: 'None', maxAge: 24 * 60 * 60 * 1000});
                 // res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "None", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
-                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: false, sameSite: "none", domain: ".vercel.app", maxAge: 24 * 60 * 60 * 1000 });
+                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: "auto", sameSite: "strict", domain: "example.com", maxAge: 24 * 60 * 60 * 1000 });
                 res.status(results.status).send({
                     ...results.data,
                     data: {accessToken: results.data.data.accessToken}

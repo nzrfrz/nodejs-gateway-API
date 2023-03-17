@@ -27,10 +27,10 @@ let corsOptions = {
 
 app.use(helmet());
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(useragent.express());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.use("/", routes);
 
