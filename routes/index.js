@@ -57,11 +57,16 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
             if (results !== undefined && req.url.includes("v2")) {
                 // res.cookie("refreshToken", results.data.data.refreshToken, {httpOnly: true, secure: "auto", path: "/", domain: req?.headers?.host?.includes("localhost") ? undefined : "vercel.app", sameSite: 'None', maxAge: 24 * 60 * 60 * 1000});
                 // res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "None", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
-                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: "auto", sameSite: "strict", domain: "example.com", maxAge: 24 * 60 * 60 * 1000 });
+                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "none", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
                 res.status(results.status).send({
                     ...results.data,
                     data: {accessToken: results.data.data.accessToken}
                 });
+            }
+            else if (results === undefined && req.url.includes("logout")) {
+                res.clearCookie();
+                res.status(results.status).send({});
+                console.log("COOKIE CLEARED");
             }
             else {
                 res.status(results.status).send(results.data);

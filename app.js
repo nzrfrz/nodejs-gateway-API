@@ -25,6 +25,8 @@ let corsOptions = {
     // exposedHeaders: ["set-cookie"],
 };
 
+// app.enable("trust proxy");
+
 app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
@@ -35,6 +37,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", routes);
 
 app.get("/", (req, res) => {
+    res.clearCookie();
+    console.log("COOKIE CLEARED");
     res.status(200).send({message: "!!! NODEJS MONGODB BACKEND API PLAYGROUND !!!"});
 });
 
