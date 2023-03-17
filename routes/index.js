@@ -63,11 +63,6 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
                     data: {accessToken: results.data.data.accessToken}
                 });
             }
-            else if (results === undefined && req.url.includes("logout")) {
-                res.clearCookie();
-                res.status(results.status).send({});
-                console.log("COOKIE CLEARED");
-            }
             else {
                 res.status(results.status).send(results.data);
             }
