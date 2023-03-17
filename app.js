@@ -20,6 +20,7 @@ let corsOptions = {
     origin: corsOptionsList,
     credentials: true,
     optionsSuccessStatus: 200,
+    exposedHeaders: ["set-cookie"],
 };
 
 app.use(helmet());
