@@ -13,6 +13,8 @@ const corsOptionsList = JSON.parse(
     await readFile(new URL("./registry/corsOptions.json", import.meta.url))
 );
 
+console.log(process.env.NODE_ENV);
+
 dotenv.config();
 const app = express();
 
@@ -20,7 +22,7 @@ let corsOptions = {
     origin: true,
     credentials: true,
     optionsSuccessStatus: 200,
-    exposedHeaders: ["set-cookie"],
+    // exposedHeaders: ["set-cookie"],
 };
 
 app.use(helmet());
