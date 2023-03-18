@@ -65,7 +65,8 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
             else if (results !== undefined && (req.url.includes("v2") && req.url.includes("logout"))) {
                 // console.log("LOGOUT V2");
                 // res.clearCookie("refreshToken", { path: "/", domain: undefined }).end();
-                res.clearCookie("refreshToken").end();
+                // res.clearCookie("refreshToken").end();
+                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "none", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
                 res.status(results.status).send("cookie cleared");
             }
             else {
