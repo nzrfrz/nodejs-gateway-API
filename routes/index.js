@@ -18,7 +18,7 @@ const REGISTRY = JSON.parse(
 routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) => {
     // console.log(req.url.includes("auth"));
     // console.log("HEADERS: \n", req.headers);
-    // console.log(req.cookies);
+    console.log(req.cookies);
     // console.log(req.url);
 
     const serviceData = REGISTRY.filter((data) => data.service === req?.params?.serviceName);
@@ -64,7 +64,8 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
             }
             else if (results !== undefined && (req.url.includes("v2") && req.url.includes("logout"))) {
                 // console.log("LOGOUT V2");
-                res.clearCookie("refreshToken", { domain: undefined, path: "/" }).end();
+                // res.clearCookie("refreshToken", { path: "/", domain: undefined }).end();
+                res.clearCookie("refreshToken").end();
                 res.status(results.status).send("cookie cleared");
             }
             else {
