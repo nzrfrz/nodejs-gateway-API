@@ -18,7 +18,8 @@ const REGISTRY = JSON.parse(
 routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) => {
     // console.log(req.url.includes("auth"));
     // console.log("HEADERS: \n", req.headers);
-    console.log(req.cookies);
+    // console.log(req.cookies);
+    // console.log(req.url);
 
     const serviceData = REGISTRY.filter((data) => data.service === req?.params?.serviceName);
     if (req.file !== undefined) {
@@ -53,7 +54,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
             data: req?.body,
         })
         .then((results) => {
-            // console.log("REFRESH: ", results.data);
+            console.log("REFRESH: ", results.data);
             if (results !== undefined && (req.url.includes("v2") && req.url.includes("login"))) {
                 res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "none", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
                 res.status(results.status).send({
