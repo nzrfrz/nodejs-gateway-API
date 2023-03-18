@@ -62,7 +62,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
                 });
             }
             else if (results !== undefined && (req.url.includes("v2") && req.url.includes("logout"))) {
-                res.clearCookie("refreshToken", { domain: ".nodejs-zistudio-api.vercel.app" }).end();
+                res.clearCookie("refreshToken", { domain: undefined, path: "/" }).end();
                 console.log("LOGOUT V2");
                 res.status(results.status).send("cookie cleared");
             }
