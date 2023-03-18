@@ -66,7 +66,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
                 // console.log("LOGOUT V2");
                 // res.clearCookie("refreshToken", { path: "/", domain: undefined }).end();
                 // res.clearCookie("refreshToken").end();
-                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "none", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
+                res.cookie("refreshToken", "", { httpOnly: true, secure: true, sameSite: "none", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
                 res.status(results.status).send("cookie cleared");
             }
             else {
