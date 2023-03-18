@@ -55,7 +55,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
         .then((results) => {
             // console.log("REFRESH: ", results.data);
             if (results !== undefined && (req.url.includes("v2") && req.url.includes("login"))) {
-                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "none", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
+                res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "none", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
                 res.status(results.status).send({
                     ...results.data,
                     data: {accessToken: results.data.data.accessToken}
