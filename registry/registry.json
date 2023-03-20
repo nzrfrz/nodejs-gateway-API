@@ -6,7 +6,7 @@
     },
     {
         "service": "playground",
-        "BASE_PATH": "https://zrghstd-api-playground.herokuapp.com",
+        "BASE_PATH": "https://nodejs-playground-api.vercel.app",
         "LOCAL_BASE_PATH": "http://localhost:8001"
     },
     {
