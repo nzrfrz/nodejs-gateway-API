@@ -20,6 +20,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
     // console.log("HEADERS: \n", req.headers);
     // console.log(req.cookies);
     // console.log(req.url);
+    // console.log(res);
 
     const serviceData = REGISTRY.filter((data) => data.service === req?.params?.serviceName);
     if (req.file !== undefined) {
