@@ -17,7 +17,8 @@ dotenv.config();
 const app = express();
 
 let corsOptions = {
-    origin: true,
+    // origin: true,
+    origin: corsOptionsList,
     credentials: true,
     optionsSuccessStatus: 200,
     // exposedHeaders: ["set-cookie"],
