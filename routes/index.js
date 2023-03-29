@@ -17,10 +17,11 @@ const REGISTRY = JSON.parse(
 
 routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) => {
     // console.log(req.url.includes("auth"));
-    // console.log("HEADERS: \n", req.headers);
+    // console.log("HEADERS: \n", req.headers.origin);
     // console.log(req.cookies);
     // console.log(req.url);
-    // console.log(res);
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+    // console.log(res.header());
 
     const serviceData = REGISTRY.filter((data) => data.service === req?.params?.serviceName);
     if (req.file !== undefined) {
