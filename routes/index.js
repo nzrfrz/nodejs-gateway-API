@@ -20,7 +20,9 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
     // console.log("HEADERS: \n", req.headers.origin);
     // console.log(req.cookies);
     // console.log(req.url);
-    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+    if (req.headers.origin !== undefined) {
+        res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+    }
     // console.log(res.header());
 
     const serviceData = REGISTRY.filter((data) => data.service === req?.params?.serviceName);
