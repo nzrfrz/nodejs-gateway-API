@@ -26,7 +26,7 @@
             ]
         },
         {
-            "source": "/https://nodejs-api-nzrfrz.vercel.app/(.*)",
+            "source": "/nodejs-api-nzrfrz.vercel.app/(.*)",
             "headers": [
                 { "key": "Access-Control-Allow-Origin", "value": "*" }
             ]
