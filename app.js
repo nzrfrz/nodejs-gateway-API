@@ -15,7 +15,7 @@ const corsOptionsList = JSON.parse(
 );
 
 const proxyMiddleware = createProxyMiddleware({
-    target: 'https://nodejs-zstd-auth-api.vercel.app', // Replace with your Node.js app's URL
+    target: 'https://nodejs-zistudio-api.vercel.app', // Replace with your Node.js app's URL
     changeOrigin: true,
 });
 
