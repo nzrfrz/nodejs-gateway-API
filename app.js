@@ -1,7 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import { createProxyMiddleware } from "http-proxy-middleware";
+// import { createProxyMiddleware } from "http-proxy-middleware";
 import useragent from "express-useragent";
 import { readFile } from "fs/promises";
 import helmet from "helmet";
@@ -14,10 +14,16 @@ const corsOptionsList = JSON.parse(
     await readFile(new URL("./registry/corsOptions.json", import.meta.url))
 );
 
-const proxyMiddleware = createProxyMiddleware({
-    target: 'https://nodejs-zistudio-api.vercel.app', // Replace with your Node.js app's URL
-    changeOrigin: true,
-});
+// const proxyMiddleware = createProxyMiddleware({
+//     target: 'http://localhost',
+//     changeOrigin: true,
+//     ws: true,
+//     router: {
+//         "/": "*",
+//         "/": 'http://localhost:3000',
+//         "/": 'http://localhost:5173'
+//     }
+// });
 
 dotenv.config();
 const app = express();
@@ -38,8 +44,9 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(useragent.express());
 app.use(express.urlencoded({ extended: true }));
+// app.use(proxyMiddleware);
 
-app.use("/", routes, proxyMiddleware);
+app.use("/", routes);
 
 app.get("/", (req, res) => {
     res.status(200).send({message: "!!! NODEJS MONGODB BACKEND API PLAYGROUND !!!"});
