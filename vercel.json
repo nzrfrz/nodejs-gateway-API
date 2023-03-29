@@ -11,25 +11,5 @@
             "src": "/(.*)",
             "dest": "/app.js"
         }
-    ],
-    "rewrites": [
-        { 
-            "source": "/(.*)", 
-            "destination": "/app.js" 
-        }
-    ],
-    "headers": [
-        {
-            "source": "/(.*)",
-            "headers": [
-                { "key": "Access-Control-Allow-Origin", "value": "*" }
-            ]
-        },
-        {
-            "source": "/nodejs-api-nzrfrz.vercel.app/(.*)",
-            "headers": [
-                { "key": "Access-Control-Allow-Origin", "value": "*" }
-            ]
-        }  
     ]
 }
