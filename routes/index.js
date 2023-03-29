@@ -58,7 +58,7 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
             data: req?.body,
         })
         .then((results) => {
-            console.log("REFRESH: ", results.data);
+            console.log("REFRESH: ", results);
             if (results !== undefined && (req.url.includes("v2") && req.url.includes("login"))) {
                 res.cookie("refreshToken", results.data.data.refreshToken, { httpOnly: true, secure: true, sameSite: "none", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
                 res.status(results.status).send({
@@ -78,7 +78,12 @@ routes.all("/:serviceName/:path(*)?", upload.single("file"), async (req, res) =>
             }
         })
         .catch((error) => {
-            if (error.response !== undefined) {
+            // console.log(error?.response?.status);
+            if (error?.response?.status !== 403) {
+                res.status(error?.response?.status || 500).send(error?.response?.data || {message: "Something went wrong"});
+            }
+            else {
+                res.cookie("refreshToken", "", { httpOnly: true, secure: true, sameSite: "none", path: "/", domain: undefined, maxAge: 24 * 60 * 60 * 1000 });
                 res.status(error?.response?.status || 500).send(error?.response?.data || {message: "Something went wrong"});
             }
         })
