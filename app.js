@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import { createProxyMiddleware } from "http-proxy-middleware";
 import useragent from "express-useragent";
 import { readFile } from "fs/promises";
 import helmet from "helmet";
@@ -12,6 +13,11 @@ import cookieParser from "cookie-parser";
 const corsOptionsList = JSON.parse(
     await readFile(new URL("./registry/corsOptions.json", import.meta.url))
 );
+
+const proxyMiddleware = createProxyMiddleware({
+    target: 'https://nodejs-zstd-auth-api.vercel.app', // Replace with your Node.js app's URL
+    changeOrigin: true,
+});
 
 dotenv.config();
 const app = express();
@@ -33,7 +39,7 @@ app.use(cors(corsOptions));
 app.use(useragent.express());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", routes);
+app.use("/", routes, proxyMiddleware);
 
 app.get("/", (req, res) => {
     res.status(200).send({message: "!!! NODEJS MONGODB BACKEND API PLAYGROUND !!!"});
